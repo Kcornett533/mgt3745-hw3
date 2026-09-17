@@ -40,10 +40,10 @@ PROFILE-01: Undergraduate Academic Researcher
 * **Needs:** An automated way to track script execution parameters and turn raw data into a standardized package without interrupting wet-lab experiments.
 * **Constraints:** No formal software engineering background and reliance on open source file platforms.
 * **Evidence IDs:** INT-01, JOB-01
-* **Profile Insights:**
-  * *Reported:* Spends up to 10 hours per submission cycle manually organizing raw .tiff files, writing README documentation, and logging script execution parameters.
-  * *Observed:* Not a fan of pre-submission file packaging, viewing it as necessary but tedious.
-  * *Inferred:* Student researchers want to share verifiable raw data, but the lack of tools makes manual prep a major productivity obstacle.
+* *Profile Insights:*
+  * **Reported:** Spends up to 10 hours per submission cycle manually organizing raw .tiff files, writing README documentation, and logging script execution parameters.
+  * **Observed:** Not a fan of pre-submission file packaging, viewing it as necessary but tedious.
+  * **Inferred:** Student researchers want to share verifiable raw data, but the lack of tools makes manual prep a major productivity obstacle.
 PROFILE-02: relevant role, circumstances, needs, constraints, and evidence IDs.
 
 PROFILE-02: Senior R&D Lead & Industry Executive
@@ -53,6 +53,6 @@ PROFILE-02: Senior R&D Lead & Industry Executive
 * **Constraints:** Strict project milestones, tight R&D budgets, and the need to protect algorithms or trade secrets while proving raw data validity.
 * **Evidence IDs:** INT-02, JOB-02
 * **Profile Insights:**
-  * *Reported:* Encountered a few weeks timeline delay and unbudgeted R&D expenses when comissioning external lab reruns to satisfy reviewer doubts.
-  * *Observed:* Emphasizes that papers advancing nonstandard or unconventional methodology face a burden of proof regarding data validity.
-  * *Inferred:* Senior research managers will invest in internal data auditing tools if it avoids costly revision cycles.
+  * **Reported:** Encountered a few weeks timeline delay and unbudgeted R&D expenses when comissioning external lab reruns to satisfy reviewer doubts.
+  * **Observed:** Emphasizes that papers advancing nonstandard or unconventional methodology face a burden of proof regarding data validity.
+  * **Inferred:** Senior research managers will invest in internal data auditing tools if it avoids costly revision cycles.
