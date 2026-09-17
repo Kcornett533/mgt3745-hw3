@@ -1,13 +1,14 @@
 # Features and specification
 
 ## Context
-Researchers publishing novel methodologies face pushback proving the validity of data to reviewers (JOB-01, JOB-02). Currently, authors must either spend hours manually assembling raw files, execution logs, and READMEs before initial submission (INT-01), or risk long and costly delays conducting external validation reruns when reviewers challenge custom parameters (INT-02). 
+Researchers publishing novel methodologies face pushback proving the validity of data to reviewers ([JOB-01](USERS.md), [JOB-02](USERS.md)). Currently, authors must either spend 10+ hours manually assembling raw files, execution logs, and READMEs before initial submission ([INT-01](USERS.md)), or risk publication delays of several weeks conducting external validation reruns when reviewers challenge custom parameters ([INT-02](USERS.md)). 
 
-To eliminate this obstacle, the proposed system is an automated data provenance and audit trail generator. The system captures digital file signatures of raw inputs, script parameters, and execution logs, enabling researchers to instantly export standardized, unalterable manifests that prove data integrity and pipeline execution.
+To eliminate this obstacle, the proposed system is an automated data provenance generator. The system captures digital file signatures of raw inputs, script parameters, and execution logs, enabling researchers to export standardized, unalterable manifests that prove data integrity.
 
 ## Users
-* **PROFILE-01 (Early-Career Academic Researcher):** Needs background logging of parameters and simple manifest exports (JOB-01) to eliminate manual packaging before manuscript submission (INT-01).
-* **PROFILE-02 (Senior R&D Lead & Industry Executive):** Needs verifiable audit trails and file signatures (JOB-02) to handle reviewer skepticism and avoid validation reruns (INT-02) without sharing raw code or data.
+Refer to complete profile definitions in [`USERS.md`](USERS.md).
+* **[PROFILE-01](USERS.md) (Early-Career Academic Researcher):** Seeks to eliminate manual packaging before manuscript submission ([INT-01](USERS.md), [JOB-01](USERS.md)).
+* **[PROFILE-02](USERS.md) (Senior R&D Lead & Industry Executive):** Seeks to overcome reviewer skepticism without sharing raw code ([INT-02](USERS.md), [JOB-02](USERS.md)).
 
 ## Scope and non-goals
 
@@ -23,9 +24,9 @@ To eliminate this obstacle, the proposed system is an automated data provenance 
 * **Cloud Sync & User Logins:** Transmitting user data over network servers or requiring account creation.
 
 ## Behavior
-* **Ubiquitous:** The system shall record parameter entries and digital file signatures, saving them to browser local storage.
+* **Ubiquitous:** The system shall record parameter entries and digital file signatures, saving them to browser local storage with less than 5 percent runtime overhead compared to unlogged script execution.
 * **Event-driven:** When a user clicks the export button on a saved record, the system shall generate and download a structured JSON manifest file.
-* **Unwanted:** If browser local storage fails or an invalid signature is entered, the system shall display an error message while keeping all user typed input intact in the form fields.
+* **Unwanted:** If browser local storage fails or an invalid signature is entered, the system shall display a red warning badge in the manifest header while keeping all user typed input intact in the form fields.
 
 ## Constraints
 * **Pure Client-Side Execution:** Must run in any modern web browser using standard HTML5, CSS, and Vanilla JavaScript without build tools or external libraries.
@@ -33,7 +34,9 @@ To eliminate this obstacle, the proposed system is an automated data provenance 
 * **Storage Limits:** State management is constrained to browser local storage capacity limits.
 
 ## Acceptance
-* **Verification Criteria:** The user can fill in valid execution parameters and a 64-character file signature, save the entry to browser storage without errors, and download the resulting JSON manifest file containing all logged metadata and a timestamp.
+* **Performance Benchmark:** The client-side logging script executes with under 5 percent runtime overhead during entry creation.
+* **Visual Warning Alert:** Invalid file signatures or storage write failures trigger a prominent red warning badge (`#D32F2F` background with text "MANIFEST VERIFICATION FAILED") in the header section.
+* **Verification Criteria:** The user can fill in valid execution parameters and a 64-character file signature, save the entry to browser storage without errors, and download the resulting JSON manifest file within 30 seconds.
 
 ---
 
@@ -41,17 +44,17 @@ To eliminate this obstacle, the proposed system is an automated data provenance 
 
 | Feature ID | Feature | Kano hypothesis | Segment / date | Evidence and reasoning |
 | :--- | :--- | :--- | :--- | :--- |
-| **F-01** | Digital Data Seal & Verification | Must-have | PROFILE-01 / PROFILE-02<br>September 10, 2026 | Essential for proving data security and integrity. |
-| **F-02** | Simple Export to JSON Manifest | Performance | PROFILE-01<br>September 10, 2026 | Saves hours of manual file gathering (INT-01). Core focus of the HW3 single-feature implementation. |
+| **F-01** | Digital Data Seal & Verification | Must-be | PROFILE-01 / PROFILE-02<br>September 10, 2026 | Essential for proving data security and integrity. |
+| **F-02** | Simple Export to JSON Manifest | Performance | PROFILE-01<br>September 10, 2026 | Saves 10+ hours of manual file gathering ([INT-01](USERS.md)). Core focus of HW3. |
 | **F-03** | Automatic Script Tracker | Performance | PROFILE-01<br>September 10, 2026 | Simplifies setup for users not accustomed to software tools. |
-| **F-04** | Live Result Testing Tool | Attractive | PROFILE-02<br>September 10, 2026 | Lets reviewers inspect settings avoiding full reruns (INT-02). |
+| **F-04** | Live Result Testing Tool | Attractive | PROFILE-02<br>September 10, 2026 | Lets reviewers inspect settings avoiding full reruns ([INT-02](USERS.md)). |
 | **F-05** | Custom UI | Indifferent | PROFILE-01 / PROFILE-02<br>September 10, 2026 | Visual styling does not impact peer review verification. |
 | **F-06** | Mandatory Code Sharing | Reverse | PROFILE-02<br>September 10, 2026 | Forcing code disclosure drives away proprietary industry users. |
 
 ---
 
 ## Handoff Reflection
-An external evaluation of this project identified two key edge cases: handling invalid file signature formats and avoiding user data loss during browser storage failures. In response, input verification rules were added to block invalid entries before saving, and the form submission logic was updated to keep text in input boxes if local storage fails.
+Evaluation by the reviewer (in this case it was Professor Swain) identified two primary edge cases: ambiguous display of verification failures and lack of performance bounds. In response, explicit thresholds were integrated into the specifications: execution overhead was bounded to under 5 percent runtime increase, and verification failures were assigned an explicit red warning badge on the manifest header. Additionally, input validation was updated to enforce 64-character hexadecimal formatting while preserving typed user form data during local storage exceptions.
 
 ---
 
