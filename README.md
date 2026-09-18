@@ -1,17 +1,10 @@
 # [Project Name]
 
-<!-- Badges are optional but cheap. shields.io generates them from a URL. -->
-![Status](https://img.shields.io/badge/status-in%20progress-yellow)
-![Module](https://img.shields.io/badge/MGT%203745-HW3-051E39)
 
-> HW3, MGT 3745 O. Replace every [bracketed prompt] with your own writing.
-> Lines between `<!--` and `-->` are notes to you. They are invisible on GitHub. Delete them when done.
-> This README is the first thing an employer, a teammate, or an agent reads. It makes
-> a case for the repository. Show, then tell.
 
 ## What
 
-Replace this title and paragraph with your chosen feature and link [PROJECT.md](context/PROJECT.md) and [FEATURES.md](context/FEATURES.md). This runnable "meeting notes" application is a teaching starter, not a completed student submission. Adapt it to your researched feature and make a meaningful change you can explain.
+This application implements **Feature F-02: Simple Export to JSON Manifest** to capture execution settings, script details, and raw data SHA-256 signatures for scientific peer review ([`PROJECT.md`](context/PROJECT.md), [`FEATURES.md`](context/FEATURES.md)).
 
 ## See It Work
 
