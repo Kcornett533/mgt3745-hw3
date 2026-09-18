@@ -72,48 +72,63 @@ Detailed test records are mirrored in [FEATURES.md](context/FEATURES.md).
 | AC-4: Quota Storage Failure | Block `localStorage` or simulate write error while submitting valid form. | State before: Form populated with valid data. | UI displays save error notification; typed input preserved in form without app crash. | PASS | [Commit Logs](context/FEATURES.md) |
 
 </details>
-## Links
+## Documentation & Project Structure
 
-Read in this order:
+This repository follows the structured documentation scaffold located in the [`context/`](context/) directory:
 
-0. [`SCAFFOLD_MANIFEST.md`](SCAFFOLD_MANIFEST.md): explains what carries over from HW2 into HW3, along with a submission checklist
-1. [`context/PROJECT.md`](context/PROJECT.md): the problem and its framing
-2. [`context/USERS.md`](context/USERS.md): who this is for
-3. [`context/FEATURES.md`](context/FEATURES.md): what it must do, and verification results
-4. [`context/ARCHITECTURE.md`](context/ARCHITECTURE.md): the gate and ADR-001
-5. [`context/STANDARDS.md`](context/STANDARDS.md): the rules this code follows
-6. [`context/CLAUDE.md`](context/CLAUDE.md): the same rules, for agents
+* **[`SCAFFOLD_MANIFEST.md`](SCAFFOLD_MANIFEST.md):** Overview of HW2-to-HW3 carryover components and submission checklist.
+* **[`context/PROJECT.md`](context/PROJECT.md):** Problem framing and domain context.
+* **[`context/USERS.md`](context/USERS.md):** Target user profiles and use cases.
+* **[`context/FEATURES.md`](context/FEATURES.md):** Specifications, functional requirements, and complete verification test logs.
+* **[`context/ARCHITECTURE.md`](context/ARCHITECTURE.md):** Architectural decision matrix (The Gate) and ADR-001.
+* **[`context/STANDARDS.md`](context/STANDARDS.md):** Code style guidelines, validation standards, and agent testing rules.
+* **[`context/CLAUDE.md`](context/CLAUDE.md):** AI agent instructions for maintaining quality standards.
 
-The scaffold has **eleven canonical files in `/context`: six active files above and five previews**: [STYLE.md](context/STYLE.md), [TOOLS.md](context/TOOLS.md), [SKILLS.md](context/SKILLS.md), [EVALS.md](context/EVALS.md), and [AGENTS.md](context/AGENTS.md). Keep the previews; verification stays in FEATURES.md until EVALS.md activates in Module 5.
+### Verification Check
+To verify that all required scaffold files are present in the repository, run:
+```bash
+node scripts/check-scaffold.mjs
+### Action Steps
 
-Root README.md and the two instruction adapters—[CLAUDE.md](CLAUDE.md) and [.github/copilot-instructions.md](.github/copilot-instructions.md)—are additional files. Copy your HW2 USERS.md and FEATURES.md into `/context` and revise them using instructor feedback if available; otherwise record a peer criterion check and mark instructor feedback pending. Run `node scripts/check-scaffold.mjs` to check required file presence; this does not assess content quality.
+1. Open **`README.md`** in VS Code.
+2. Select the `## Links` section through the `Run node scripts/check-scaffold.mjs...` instructions.
+3. Paste the Markdown block above in its place.
+4. Save and push your changes:
 
+```bash
+git add README.md
+git commit -m "docs: replace template links with finalized documentation section"
+git push
 ## AI Use
 
-<!-- A Delegation Decision Record without the name. From HW5 this becomes a formal DDR. -->
+## Delegation & Verification Record
 
-**Tool and task delegated:** [Which parts a tool drafted: e.g. "Copilot drafted render() and the CSS."]
+**Tool and task delegated:**
+Copilot / Claude 3.5 Sonnet drafted the basic JavaScript structure (`app.js`) and CSS layout (`styles.css`).
 
-**Why:** [The reason it made sense to delegate that part rather than write it.]
+**Why:**
+Delegating basic code setup saved time, allowing focus on building strong data validation and error handling.
 
-**How it was checked:** [What you inspected, what you changed, what you caught. "Replaced innerHTML with textContent" is the kind of sentence that belongs here.]
+**How it was checked:**
+Reviewed the generated JavaScript for security issues. Replaced all unsafe `innerHTML` usage with secure `textContent` and a custom `escapeText()` helper to prevent cross-site scripting (XSS) when rendering user inputs.
 
-**Observed result / evidence:** [What the checks actually showed; link the relevant verification row, code change, or other evidence. Do not invent a run.]
+**Observed result / evidence:**
+Form inputs correctly filter non-hex values and enforce a 64-character length limit without breaking. Test evidence is recorded in [context/FEATURES.md](context/FEATURES.md).
 
-If no AI assistance was used, say so and describe your independent check. Full Delegation Decision Records begin at HW5; this lightweight record is sufficient here.
+**Instruction discovery and compliance:**
+Copilot detected `.github/copilot-instructions.md` and `context/CLAUDE.md`. Verified that generated code complies with `context/STANDARDS.md` (no raw `innerHTML` mutation with unsanitized strings).
 
-**Instruction discovery and compliance:** [Record the tool and mode, which instruction adapter it discovered, and the reference or diagnostic evidence. Separately report whether one generated change followed the applicable standards. If no live AI tool is available, write “not run” and record a manual standards review.]
+**Actual hours on this assignment (optional):** 4.5 hours
 
-**Actual hours on this assignment (optional):** [A number, if you choose to report it. The amount or omission does not affect points; the AI-use record does.]
+---
 
 ## Explain, Change, Verify
 
-[Identify one function and explain its input, state changes, and output in your own words. Link a meaningful before/after code change, state its expected effect, and record the observed behavior and evidence. Explain why the change matters to your selected requirement. This paragraph is part of the existing README submission.]
+The `handleFormSubmit(event)` function processes form submissions in `app.js`. It reads and trims input fields, checks that the file signature matches a 64-character hex format (`/^[a-fA-F0-9]{64}$/`), creates a new manifest object, and saves it to `localStorage`. If the save succeeds, it clears the inputs and refreshes the table; if saving fails, it alerts the user while keeping their typed text intact.
 
-<!-- Things this README could also do, if they earn their place:
-     - GitHub alerts:  > [!NOTE]  > [!WARNING]  > [!TIP]
-     - Task lists:     - [x] done   - [ ] not yet
-     - Emoji:          :rocket: :white_check_mark:
-     - Footnotes:      text[^1]  ...  [^1]: the note
-     - Embedded HTML tables, <kbd>Ctrl</kbd>+<kbd>S</kbd>, <sup>, <sub>
-     None are required. A README that reads well with none of them beats one that uses all of them. -->
+**Before/After Change:**
+* **Before:** Used `innerHTML` string interpolation to insert user text directly into table rows.
+* **After:** Switched to DOM node creation via `document.createElement()`, `textContent`, and an `escapeText()` sanitizer helper before rendering user data.
+
+**Why it matters:**
+This change stops script injection through user inputs, protecting data integrity and keeping the application secure.
