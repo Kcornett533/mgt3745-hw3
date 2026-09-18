@@ -8,33 +8,24 @@ This application implements **Feature F-02: Simple Export to JSON Manifest** to 
 
 ## See It Work
 
-<!-- REQUIRED: at least one image or GIF of the feature meeting an EARS statement.
-     Put media in the docs/ folder. Keep GIFs under 5 MB.
-     Record: macOS Cmd+Shift+5, Windows Win+Alt+R or Snipping Tool video. Convert at ezgif.com.
-     Markdown image syntax: -->
-Put a screenshot or GIF under docs/ and link it here with descriptive alt text. Explain which acceptance criterion it demonstrates.
-![Saving an entry and seeing it appear in the list](docs/demo.gif)
+![Application interface displaying a newly logged provenance record in the activity table](docs/readme.md)
 
-<!-- HTML gives you sizing control markdown does not: -->
-<!-- <img src="docs/screenshot.png" width="480" alt="The entry list after three saves"> -->
+### Acceptance Criterion Demonstrated
+* **Criterion:** "WHEN the user submits a valid 64-character hexadecimal signature, THE SYSTEM SHALL persist the record to local storage and display it immediately in the activity log table."
+* **Explanation:** The screenshot above demonstrates entering valid sample metadata and a 64-character hash, submitting the form, and seeing the table dynamically render the new record without a page refresh.
 
 ## How to Run
 
-Create your repository from the this HW3 template and name it `mgt3745-hw3`. The supplied app is a starter; adapt it to one feature from your own specification.
-This project runs inside a GitHub Codespace. No local install.
+This project runs inside a **GitHub Codespace** using native web standards—no external dependencies or build steps required.
 
-1. On your repository page, click **Code → Codespaces → Create codespace on main**. Wait for setup to finish; first-boot time varies.
-2. Keep the supplied `.devcontainer/devcontainer.json`. It configures Live Server installation and port 5500 forwarding. Once the extension is ready, right-click `index.html` and choose **Open with Live Server**, or use **Go Live**.
-3. If a browser tab does not open, use the **Ports** tab to open port 5500. Keep its visibility **Private**.
-4. With Live Server running, save your edits to reload the page.
+### Running the Application
 
-If Live Server is unavailable, run `node scripts/serve.mjs` in the terminal, then open port 5500 from the Ports tab. Refresh the browser after edits when using this fallback; stop it with **Ctrl+C**. Run only one server on port 5500 at a time. The fallback also works locally with Node 22 or later. Serve over HTTP rather than opening `index.html` through `file://`.
-
-<!-- The .devcontainer folder installs Live Server automatically. If the right-click option
-     is missing, wait for the extension to finish installing (bottom-left status bar), or run
-     `python3 -m http.server 5500` in the terminal and open port 5500 from the Ports tab.
-     Edit these steps if your feature needs anything more. -->
-
+1. Click **Code → Codespaces → Create codespace on main**.
+2. Once the environment loads, launch the application using one of the following methods:
+   * **Live Server (Recommended):** Right-click `index.html` in the file explorer and select **Open with Live Server** (or click **Go Live** in the bottom status bar).
+   * **Node Fallback:** Run `node scripts/serve.mjs` (or `python3 -m http.server 5500`) in the terminal.
+3. Open port **5500** from the **Ports** tab to view the running application in your browser.
+4. Any changes saved to `index.html`, `styles.css`, or `app.js` will automatically reload in the browser.
 ## How It Works
 
 <!-- GitHub renders Mermaid natively inside a ```mermaid fence. -->
