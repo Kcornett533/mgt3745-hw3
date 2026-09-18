@@ -53,25 +53,25 @@ flowchart TD
 
 | Area | State | Why |
 |------|-------|-----|
-| Save and display | [Works / Partial / Broken / Not tested] | [Link your verification evidence] |
-| Invalid input | [Works / Partial / Broken / Not tested] | [Link your verification evidence] |
-| Data survives reload / storage failure | [Works / Partial / Broken / Not tested] | [Link your verification evidence] |
-| Multi-user sync (starter limitation) | Deferred | Browser-local storage does not provide sync. Explain your own scope and decision in [ADR-001](context/ARCHITECTURE.md). |
+| Save and display | Works | Form validates input, persists new record to `localStorage`, and updates the table without a page reload. [Evidence](docs/readma) |
+| Invalid input | Works | Reject button triggers clear error messaging for non-hex or incorrect length hashes without corrupting state. [See Verification Log](#verification-results-click-to-expand) |
+| Data survives reload / storage failure | Works | State reloads successfully from `localStorage` upon page refresh; simulated quota errors safely display user warnings. [See Verification Log](#verification-results-click-to-expand) |
+| Multi-user sync (starter limitation) | Deferred | Browser-local storage does not provide sync. Scope and architectural decision documented in [ADR-001](context/ARCHITECTURE.md). |
 
 
 <details>
 <summary>Verification results (click to expand)</summary>
 
-Keep the full verification record in [FEATURES.md](context/FEATURES.md). Summarize it here or link directly to its Verification section; keep both consistent.
+Detailed test records are mirrored in [FEATURES.md](context/FEATURES.md).
 
 | Criterion / EARS statement | Steps and input | Expected result | Observed result | Status | Evidence / commit |
 |---|---|---|---|---|---|
-| [Your selected criterion ID] | [Reproducible procedure] | [State before testing] | [What actually happened] | [PASS / FAIL / CANNOT TEST / DEFERRED] | [Link] |
-
-Cover a normal action, relevant invalid input, and persistence or failure. PASS requires observed results that match expectations; all-PASS is acceptable with evidence. For CANNOT TEST, state the limitation and next step. Identify unselected requirements separately; DEFERRED does not waive the required HW3 feature. A screenshot alone cannot establish reload or storage-failure behavior.
+| AC-1: Valid Hash Persistence | Enter valid Sample ID, Operator ID, and a 64-character hex hash. Click "Log Manifest". | State before: Empty table or existing records. | Record appended to table instantly and saved to `localStorage`. Inputs cleared. | PASS | [Screenshot](docs/readma) |
+| AC-2: Invalid Hash Rejection | Enter a 10-character hash (invalid length/character set). Click "Log Manifest". | State before: Inputs entered, table unchanged. | Validation error displayed above form. No record added to table or storage. | PASS | [Commit Logs](context/FEATURES.md) |
+| AC-3: Data Reload Persistence | Populate log table, refresh browser page (F5 or Live Server reload). | State before: Active manifest table populated. | All logged records re-parsed from `localStorage` and re-rendered in table accurately. | PASS | [Commit Logs](context/FEATURES.md) |
+| AC-4: Quota Storage Failure | Block `localStorage` or simulate write error while submitting valid form. | State before: Form populated with valid data. | UI displays save error notification; typed input preserved in form without app crash. | PASS | [Commit Logs](context/FEATURES.md) |
 
 </details>
-
 ## Links
 
 Read in this order:
