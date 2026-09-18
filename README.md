@@ -26,6 +26,10 @@ This project runs inside a **GitHub Codespace** using native web standards—no 
    * **Node Fallback:** Run `node scripts/serve.mjs` (or `python3 -m http.server 5500`) in the terminal.
 3. Open port **5500** from the **Ports** tab to view the running application in your browser.
 4. Any changes saved to `index.html`, `styles.css`, or `app.js` will automatically reload in the browser.
+
+
+
+<img width="860" height="622" alt="Screenshot 2026-09-17 233523" src="https://github.com/user-attachments/assets/c9da12e1-8b16-4acf-89d7-27b55575453c" />
 ## How It Works
 
 flowchart TD
