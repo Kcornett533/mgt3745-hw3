@@ -1,27 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meeting notes | MGT 3745 starter</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Provenance Audit Trail Generator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Meeting notes</h1>
-    <p>Keep short notes in this browser. Use fictional, non-sensitive information.</p>
-    <form id="note-form" novalidate>
-      <label for="note-input">New note</label>
-      <p id="note-help">Enter 1–200 characters. Notes stay in this browser profile and site only.</p>
-      <input id="note-input" name="note" type="text" aria-describedby="note-help note-error" autocomplete="off">
-      <button type="submit">Save note</button>
-      <p id="note-error" role="alert"></p>
-    </form>
-    <p id="save-status" role="status" aria-live="polite"></p>
-    <h2>Saved notes</h2>
-    <p id="empty-state">No saved notes yet.</p>
-    <ul id="note-list" aria-label="Saved notes"></ul>
-  </main>
+    <header class="app-header">
+        <h1>Data Provenance Audit Trail Generator</h1>
+        <p>Capture input file signatures, execution parameters, and pipeline logs to generate immutable JSON provenance manifests for peer review.</p>
+        <div id="status-badge" class="badge badge-success" role="status" aria-live="polite">
+            SYSTEM READY
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Entry Input Form -->
+        <section class="card">
+            <h2>Log New Execution Manifest</h2>
+            <form id="provenance-form" novalidate>
+                <div class="form-group">
+                    <label for="pipeline-name">Pipeline / Script Name *</label>
+                    <input type="text" id="pipeline-name" placeholder="e.g., preprocess_sEMG_signals.py" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="execution-params">Execution Parameters & Settings *</label>
+                    <textarea id="execution-params" rows="3" placeholder="e.g., --filter=bandpass --cutoff=20-450Hz --window=200ms" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="file-signature">Raw Data SHA-256 File Signature (64-char Hex) *</label>
+                    <input type="text" id="file-signature" placeholder="e.g., e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" maxlength="64" required>
+                    <small>Must be exactly 64 hexadecimal characters.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="researcher-notes">Researcher Notes / Context</label>
+                    <input type="text" id="researcher-notes" placeholder="e.g., Subject 04 isometric grip hold trail 2">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="save-btn" class="btn btn-primary">Save Manifest Entry</button>
+                    <button type="button" id="clear-btn" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Stored Records List -->
+        <section class="card">
+            <div class="section-header">
+                <h2>Saved Provenance Records</h2>
+                <button id="clear-all-btn" class="btn btn-danger-outline">Clear All Entries</button>
+            </div>
+            <div id="records-list" class="records-container" aria-live="polite">
+                <!-- Dynamic records rendered here -->
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
 </body>
 </html>
