@@ -28,23 +28,26 @@ This project runs inside a **GitHub Codespace** using native web standards—no 
 4. Any changes saved to `index.html`, `styles.css`, or `app.js` will automatically reload in the browser.
 ## How It Works
 
-<!-- GitHub renders Mermaid natively inside a ```mermaid fence. -->
-
-```mermaid
 flowchart TD
- A[Page opens] --> B[loadNotes: read and validate localStorage]
-  B --> C[renderNotes: draw current state]
-  D[User submits entry] --> E{Trimmed input is 1 to 200 characters?}
-  E -->|No| F[Show validation error and keep input]
-  E -->|Yes| G[Create proposed notes array]
-  G --> H{saveNotes: storage write succeeds?}
-  H -->|No| I[Show save error; keep input and current list]
-  H -->|Yes| J[Update in-memory notes]
-  J --> K[renderNotes: redraw list]
-  K --> L[Clear input and announce saved]
-```
+    A[Page opens] --> B[loadManifests: read & parse localStorage]
+    B -->|Read Error| B1[Show read warning & set empty state]
+    B -->|Read Success| C[renderManifests: draw table with textContent]
+    B1 --> C
 
-This diagram describes the starter's load-and-add flow. Update it to match your implementation. In `app.js`, `loadNotes` reads stored data, `saveNotes` attempts to persist a proposed state, and `renderNotes` draws the current state using `textContent` for user text. The submit handler validates input and updates the visible state only after a successful save. Delete also saves the proposed state before redrawing. A read failure shows a warning and starts with an empty in-memory list; it leaves the original storage unchanged until a successful new save replaces it.
+    D[User submits form] --> E{Valid Sample ID, Operator ID & 64-char Hex Hash?}
+    E -->|No| F[Show validation error & preserve typed inputs]
+    E -->|Yes| G[Create proposed manifest record]
+
+    G --> H{saveManifests: storage write succeeds?}
+    H -->|No| I[Show storage error & preserve typed inputs]
+    H -->|Yes| J[Update in-memory state]
+    J --> K[renderManifests: redraw log table]
+    K --> L[Clear form inputs & announce success]
+
+    M[User clicks Delete] --> N[Create proposed array without entry]
+    N --> O{saveManifests: storage write succeeds?}
+    O -->|No| P[Show delete error & maintain active list]
+    O -->|Yes| Q[Update in-memory state & re-render table]
 
 ## Status
 
