@@ -1,7 +1,13 @@
 # Canonical agent instructions
 
-Status: ACTIVE in Module 3. Read context/STANDARDS.md and the selected scope in FEATURES.md before editing. STANDARDS.md is normative; report and repair conflicting instruction wording.
+## Architectural Constraints
+* **Stack:** Pure Vanilla JavaScript (ES6+), HTML5, CSS3.
+* **Dependencies:** Zero external npm modules, build chains, or CDN scripts.
+* **Storage:** Client-side browser `localStorage` only.
+* **Accessibility:** Full keyboard accessibility and ARIA live status region updates.
 
-Use descriptive camelCase names and lexical scope. Keep HTML, CSS, and JavaScript separate. Explain significant reasons in comments. Use meaningful commit messages. Insert user text with textContent; do not use innerHTML for it. Label controls and preserve unsaved input after a failed write. Verify expected behavior before claiming completion. Never invent interview evidence or test results. Leave preview files as previews.
-
-Root CLAUDE.md imports this file for Claude Code. VS Code Copilot uses the separate .github/copilot-instructions.md adapter. A location under /context alone is not a guarantee of automatic discovery.
+## Normative Code Rules
+1. Never assign unescaped user inputs to `innerHTML`. Use `textContent` and `createElement`.
+2. Always wrap `localStorage.getItem` and `localStorage.setItem` in `try/catch` blocks.
+3. Retain user form inputs on storage write errors.
+4. Validate signature formatting prior to state mutations.
